@@ -1,0 +1,15 @@
+{
+    "port": 9080,
+    "nats": {
+        "server": "nats://nats:4222",
+        "queue": "geoEvents"
+    },
+    "elasticsearch": {
+        "server": {
+            "host": "elk",
+            "port": 9200
+        },
+        "_index": "geomap",
+        "_type": "geoevent"
+    }
+}

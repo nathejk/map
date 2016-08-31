@@ -101,7 +101,7 @@ function flyTo(coords) {
     });
     map.beforeRender(pan, bounce, zoom);
     view.setCenter(ol.proj.fromLonLat(coords));
-    view.setZoom(16);
+    view.setZoom(17);
 }
 
 function reSearch() {

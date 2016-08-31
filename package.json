@@ -15,9 +15,8 @@
     "config": "^1.21.0",
     "es": "^0.5.1",
     "express": "^4.14.0",
+    "lodash": "^4.15.0",
+    "mustache-express": "^1.2.2",
     "nats": "^0.6.4"
-  },
-  "devDependencies": {
-    "lodash": "^4.15.0"
   }
 }

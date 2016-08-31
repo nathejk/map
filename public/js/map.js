@@ -3,8 +3,10 @@ var popupElement = document.getElementById("popup");
 var popupCloserElement = document.getElementById("popup-closer");
 var popupContentElement = document.getElementById("popup-content");
 
+var query = {};
+
 var view = new ol.View({
-    center: ol.proj.transform([12.5212158, 55.6809077], "EPSG:4326", "EPSG:3857"),
+    center: ol.proj.transform([12.0777615 , 55.6499431], "EPSG:4326", "EPSG:3857"),
     zoom: 12 });
 
 // init map
@@ -47,52 +49,14 @@ map.on("click", function(evt) {
         return;
     }
 
-    // var element = popup.getElement();
     var coordinate = evt.coordinate;
-    // var hdms = ol.coordinate.toStringHDMS(ol.proj.transform(coordinate, "EPSG:3857", "EPSG:4326"));
 
     var pixel = map.getEventPixel(evt.originalEvent);
     var feature = map.forEachFeatureAtPixel(pixel, function(feature) {
         return feature;
     });
 
-    if(feature == null) {
-        var html = "<p>Create Playground</p>";
 
-        html += '<p>Name: <input class="input" id="name" type="text" value=""></p>';
-
-        var lonlat = ol.proj.transform(coordinate, "EPSG:3857", "EPSG:4326");
-        html += '<p>Latitude:  <input class="input" id="latitude" type="number" value="' + lonlat[1].toFixed(4) + '"></p>';
-        html += '<p>Longitude: <input class="input" id="longitude" type="number" value="' + lonlat[0].toFixed(4) + '"></p>';
-        html += '<p><input id="create_playground" type="button" value="Create"></p>';
-
-        popupContentElement.innerHTML = html;
-
-        document.getElementById("create_playground").onclick = function() {
-            var data = {
-                name: document.getElementById("name").value,
-                latitude: document.getElementById("latitude").value,
-                longitude: document.getElementById("longitude").value
-            };
-
-            // $.ajax({
-            //     method: "POST",
-            //     data: data,
-            //     url: base_url + "/playgrounds",
-            //     timeout: 4000,
-            //     success: function(data) {
-            //
-            //     },
-            //     error: function(data, exception) {
-            //         alert("Could not create playground on server!");
-            //     }
-            // });
-            popup.setPosition(undefined);
-        };
-
-        popup.setPosition(coordinate);
-        return;
-    }
 });
 
 function flyTo(coords) {
@@ -118,40 +82,83 @@ function flyTo(coords) {
     view.setZoom(16);
 }
 
-function updateSearch() {
-    console.log("update search")
-    // $.ajax({
-    //     type: "GET",
-    //     url: base_url + "/playgrounds",
-    //     timeout: 3000,
-    //     dataType: "json",
-    //     success: function(data) {
-    //         eventSource.clear();
-    //
-    //         for(var index in data.playgrounds) {
-    //             var playground = data.playgrounds[index];
-    //             var geom = new ol.geom.Circle(ol.proj.transform([playground.location.lon, playground.location.lat], "EPSG:4326", "EPSG:3857"), 200);
-    //
-    //             var feature = new ol.Feature({ geometry: geom });
-    //
-    //             feature.type = "playground";
-    //             feature.data = playground;
-    //             eventSource.addFeature(feature);
-    //         }
-    //         errorElement.style.display = "none";
-    //     },
-    //     error: function(data, exception) {
-    //         errorElement.innerHTML = "Connection issues";
-    //         errorElement.style.display = "block";
-    //     }
-    // });
+function reSearch() {
+    $.ajax({
+        type: "POST",
+        url: "/apiv1/search",
+        timeout: 3000,
+        dataType: "json",
+        data: JSON.stringify(query),
+        contentType: "application/json; charset=utf-8",
+        success: function(events) {
+            // console.log("Got data: " + JSON.stringify(events));
+            eventSource.clear();
+
+            for(var index in events) {
+                var event = events[index];
+                var geom = new ol.geom.Circle(ol.proj.transform([event.location.lon, event.location.lat], "EPSG:4326", "EPSG:3857"), 20);
+
+                var feature = new ol.Feature({ geometry: geom });
+
+                feature.type = event.type;
+                feature.data = event;
+                eventSource.addFeature(feature);
+            }
+
+            errorElement.style.display = "none";
+        },
+        error: function(data, exception) {
+            errorElement.innerHTML = "Connection issues";
+            errorElement.style.display = "block";
+        }
+    });
 }
 
 function update() {
-    updateSearch();
+    reSearch();
 }
+
+
+var values = ["patrol", "type", "charter", "gang", "bandit", "team", "checkPoint"];
+function updateSearchQuery() {
+    var musts = [];
+
+    for (var i in values) {
+        var valueName = values[i];
+        var value = document.getElementById(valueName).value;
+        if(value) {
+            var must = { match: { } };
+            must.match[valueName] = value;
+            musts.push(must);
+        }
+    }
+
+    query = {
+        bool: {
+            must: musts
+        }
+    }
+
+    update();
+}
+
+function clearSearchQuery() {
+    for (var i in values) {
+        var valueName = values[i];
+        document.getElementById(valueName).value = "";
+    }
+    query = {};
+    update();
+}
+
+
+var adjustSearchElement = document.getElementById("adjustSearch");
+adjustSearchElement.onclick = updateSearchQuery;
+
+var clearSearchElement = document.getElementById("clearSearch");
+clearSearchElement.onclick = clearSearchQuery;
 
 initLayers(function() {
     update();
-    window.setInterval(update, 1000);
+    window.setInterval(update, 5000);
 });

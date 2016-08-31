@@ -68,8 +68,8 @@ body {
 
 #resultsContent {
     font-weight: bold;
-    height: 600px;
-    overflow: auto;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .search {
@@ -85,7 +85,7 @@ body {
 }
 
 #searchContent {
-    max-height: 400px;
+    max-height: 600px;
     font-weight: bold;
     overflow-y: auto;
 }

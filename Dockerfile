@@ -13,4 +13,7 @@ RUN npm install
 COPY . /usr/src/app
 
 EXPOSE 9080
+
+ENV NODE_ENV production
+
 CMD [ "npm", "start" ]

@@ -1,0 +1,10 @@
+{
+    "nats": {
+        "server": "nats://nats:4222"
+    },
+    "elasticsearch": {
+        "server": {
+            "host": "elk"
+        }
+    }
+}

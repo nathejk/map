@@ -64,7 +64,7 @@ map.on("click", function(evt) {
     var string = "<p>" + date + "</p>";
 
     if(feature.type === "caught") {
-        string += "<p>Patrol [" + event.patrol + "] caught by bandit [" + event.bandit + "]</p>";
+        string += "<p>Patrol [" + feature.data.patrol + "] caught by bandit [" + feature.data.bandit + "]</p>";
         popupContentElement.innerHTML = string;
     }
 

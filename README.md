@@ -19,6 +19,43 @@ $ docker run -d -p 3000:9080 --link nats:nats --link elk:elk --name map nathejk/
 ```
 
 
+## Events
+
+There are 3 kinds of events that are being processed.
+
+### Check-ins
+``` javascript
+{
+    type: "checkIn",
+    patrol: {patrolNumber},
+    checkPoint: {checkPointId},
+    timestamp: {iso8601}
+}
+```
+
+### Contacts
+``` javascript
+{
+    type: "contact",
+    patrol: {patrolNumber},
+    team: {teamNumber},
+    timestamp: {iso8601}
+}
+```
+
+### Catches
+``` javascript
+{
+    type: "caught",
+    patrol: {patrolNumber},
+    bandit: {banditNumber},
+    charter: {charterNumber},
+    gang: {gangNumber},
+    timestamp: {iso8601}
+}
+```
+
+
 ### Notes
 To add better map and mapzoom to kibana tilemap visualization, add the following to `kibana.yml`:
 

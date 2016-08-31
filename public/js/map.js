@@ -3,7 +3,7 @@ var popupElement = document.getElementById("popup");
 var popupCloserElement = document.getElementById("popup-closer");
 var popupContentElement = document.getElementById("popup-content");
 
-var query = {};
+var query = undefined;
 
 var view = new ol.View({
     center: ol.proj.transform([12.0777615 , 55.6499431], "EPSG:4326", "EPSG:3857"),
@@ -183,24 +183,30 @@ function update() {
 
 
 var values = ["patrol", "type", "charter", "gang", "bandit", "team", "checkPoint"];
+var dates = ["from", "to"];
 function updateSearchQuery() {
-    var musts = [];
+    var fields = { };
+
+    var d = new Date()
+    var offset = d.getTimezoneOffset();
 
     for (var i in values) {
         var valueName = values[i];
-        var value = document.getElementById(valueName).value;
-        if(value) {
-            var must = { match: { } };
-            must.match[valueName] = value;
-            musts.push(must);
+        var value = document.getElementById(valueName).value || undefined;
+        if(value !== undefined) {
+            fields[valueName] = value;
         }
     }
 
-    query = {
-        bool: {
-            must: musts
+    for (var i in dates) {
+        var valueName = dates[i];
+        var value = document.getElementById(valueName).value || undefined;
+        if(value !== undefined) {
+            fields[valueName] = new Date(Date.parse(value)+ offset * 60 * 1000).toISOString();
         }
     }
+
+    query = fields;
 
     update();
 }
@@ -208,6 +214,10 @@ function updateSearchQuery() {
 function clearSearchQuery() {
     for (var i in values) {
         var valueName = values[i];
+        document.getElementById(valueName).value = "";
+    }
+    for (var i in dates) {
+        var valueName = dates[i];
         document.getElementById(valueName).value = "";
     }
     query = {};

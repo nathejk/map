@@ -9,7 +9,7 @@
             "host": "localhost",
             "port": 9200
         },
-        "_index": "geomap",
-        "_type": "geoevent"
+        "_index": "map",
+        "_type": "event"
     }
 }

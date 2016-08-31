@@ -31,7 +31,7 @@ var initLayers = function(callback) {
     var eventLayer = new ol.layer.Vector({
         source: eventSource,
         style: new ol.style.Style({
-            stroke: new ol.style.Stroke({ color: "black", width: 1 }),
+            stroke: new ol.style.Stroke({ color: "black", width: 2 }),
             fill: new ol.style.Fill({ color: "black" })
         }),
         opacity: 0.6
@@ -56,11 +56,33 @@ map.on("click", function(evt) {
         return feature;
     });
 
+    if(!feature) {
+        return;
+    }
 
+    var date = (new Date(feature.data.timestamp)).toLocaleString("da-DK");
+    var string = "<p>" + date + "</p>";
+
+    if(feature.type === "caught") {
+        string += "<p>Patrol [" + event.patrol + "] caught by bandit [" + event.bandit + "]</p>";
+        popupContentElement.innerHTML = string;
+    }
+
+    if(feature.type === "checkIn") {
+        string += "<p>Patrol [" + feature.data.patrol + "] checked in at [" + feature.data.checkPoint + "]</p>";
+        popupContentElement.innerHTML = string;
+    }
+
+    if(feature.type === "contact") {
+        string += "<p>Patrol [" + feature.data.patrol + "] had contact with team [" + feature.data.team + "]</p>";
+    }
+
+    popupContentElement.innerHTML = string;
+    popup.setPosition(coordinate);
 });
 
 function flyTo(coords) {
-    var duration = 2000;
+    var duration = 1000;
     var start = +new Date();
     var pan = ol.animation.pan({
         duration: duration,
@@ -91,20 +113,61 @@ function reSearch() {
         data: JSON.stringify(query),
         contentType: "application/json; charset=utf-8",
         success: function(events) {
-            // console.log("Got data: " + JSON.stringify(events));
             eventSource.clear();
 
+            var drawResults = true;
+            if(events.length > 200) {
+                drawResults = false;
+                resultsContent.innerHTML = "Too many results to list, try to narrow it down.";
+            }
+
+            var results = "";
             for(var index in events) {
                 var event = events[index];
                 var geom = new ol.geom.Circle(ol.proj.transform([event.location.lon, event.location.lat], "EPSG:4326", "EPSG:3857"), 20);
 
                 var feature = new ol.Feature({ geometry: geom });
 
+                var eventColours = {
+                    checkIn: "#00FF00",
+                    contact: "#0000FF",
+                    caught: "#FF0000"
+                }
+
+                var style = new ol.style.Style({
+                    stroke: new ol.style.Stroke({ color: "black", width: 1 }),
+                    fill: new ol.style.Fill({ color: eventColours[event.type] }),
+                });
+
+                feature.setStyle(style);
+
                 feature.type = event.type;
                 feature.data = event;
                 eventSource.addFeature(feature);
+
+
+                if(drawResults) {
+                    var html = "<p onclick=\"flyTo([" + event.location.lon + ", "+ event.location.lat + "])\">";
+
+                    if(event.type === "caught") {
+                        html += "Patrol [" + event.patrol + "] caught by bandit [" + event.bandit + "]</p>";
+                    }
+
+                    if(event.type === "checkIn") {
+                        html += "Patrol [" + event.patrol + "] checked in at [" + event.checkPoint + "]</p>";
+                    }
+
+                    if(event.type === "contact") {
+                        html += "Patrol [" + event.patrol + "] had contact with team [" + event.team + "]</p>";
+                    }
+
+                    results += html;
+                }
             }
 
+            if(drawResults) {
+                resultsContent.innerHTML = results;
+            }
             errorElement.style.display = "none";
         },
         error: function(data, exception) {

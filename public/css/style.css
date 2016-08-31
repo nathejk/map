@@ -55,6 +55,7 @@ body {
 
 .results {
     width: 18%;
+    max-height: 90%;
     position: absolute;
     top: 0;
     right: 0;
@@ -67,6 +68,8 @@ body {
 
 #resultsContent {
     font-weight: bold;
+    height: 600px;
+    overflow: auto;
 }
 
 .search {

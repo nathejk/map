@@ -125,13 +125,12 @@ function reSearch() {
         success: function(events) {
             eventSource.clear();
 
-            var drawResults = true;
+            var drawnResults = 0;
+            var results = "";
             if(events.length > 200) {
-                drawResults = false;
-                resultsContent.innerHTML = "Too many results to list, try to narrow it down.";
+                results += "<p>" + events.length + " events found - listing the first 200</p>";
             }
 
-            var results = "";
             for(var index in events) {
                 var event = events[index];
                 var geom = new ol.geom.Circle(ol.proj.transform([event.location.lon, event.location.lat], "EPSG:4326", "EPSG:3857"), 20);
@@ -156,7 +155,7 @@ function reSearch() {
                 eventSource.addFeature(feature);
 
 
-                if(drawResults) {
+                if(drawnResults < 200) {
                     var html = "<p onclick=\"flyTo([" + event.location.lon + ", "+ event.location.lat + "])\">";
 
                     if(event.type === "caught") {
@@ -172,12 +171,12 @@ function reSearch() {
                     }
 
                     results += html;
+                    drawnResults++;
                 }
             }
 
-            if(drawResults) {
-                resultsContent.innerHTML = results;
-            }
+            resultsContent.innerHTML = results;
+
             errorElement.style.display = "none";
         },
         error: function(data, exception) {

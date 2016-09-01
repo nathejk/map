@@ -27,6 +27,7 @@ There are 3 kinds of events that are being processed.
 ``` javascript
 {
     type: "checkIn",
+    location: { lat: {latitude}, lon: {longitude} },
     patrol: {patrolNumber},
     checkPoint: {checkPointId},
     timestamp: {iso8601}
@@ -37,6 +38,7 @@ There are 3 kinds of events that are being processed.
 ``` javascript
 {
     type: "contact",
+    location: { lat: {latitude}, lon: {longitude} },
     patrol: {patrolNumber},
     team: {teamNumber},
     timestamp: {iso8601}
@@ -47,6 +49,7 @@ There are 3 kinds of events that are being processed.
 ``` javascript
 {
     type: "caught",
+    location: { lat: {latitude}, lon: {longitude} },
     patrol: {patrolNumber},
     bandit: {banditNumber},
     charter: {charterNumber},

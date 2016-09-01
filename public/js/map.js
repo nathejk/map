@@ -13,7 +13,7 @@ var view = new ol.View({
 
 var vector = new ol.layer.Vector({
     source: new ol.source.Vector({
-      url: '/data/nathejk.kmz',
+      url: '/data/kml/doc.kml',
       format: new ol.format.KML()
     })
 });

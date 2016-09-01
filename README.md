@@ -18,10 +18,12 @@ $ docker run -d -p 5601:5601 -p 9200:9200 -e LOGSTASH_START=0 --name elk sebp/el
 $ docker run -d -p 3000:9080 --link nats:nats --link elk:elk --name map nathejk/map
 ```
 
+By default, it subscribes to the queue `geoEvents`. When everything is running, events can be put on the queue, and will appear on the map.
+
 
 ## Events
 
-There are 3 kinds of events that are being processed.
+There are 3 kinds of events that are being processed. If a timestamp is not included in the event, one will be supplied.
 
 ### Check-ins
 ``` javascript

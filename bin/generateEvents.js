@@ -88,7 +88,7 @@ function randomBanditInCharter(charter) {
 }
 
 function estimateGang(bandit) {
-    return Math.floor(bandit.substr(1) / 4);
+    return Math.floor(bandit.substr(1) / 4) + "";
 }
 
 function randomInt(min, max) {

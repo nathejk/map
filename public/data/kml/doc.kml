@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.opengis.net/kml/2.2 http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd http://www.google.com/kml/ext/2.2 http://code.google.com/apis/kml/schema/kml22gx.xsd">
+<Document id="OmrådeRamme">
+  <name>OmrådeRamme</name>
+  <Snippet></Snippet>
+  <Folder id="FeatureLayer0">
+    <name>OmrådeRamme</name>
+    <Snippet></Snippet>
+    <Placemark id="ID_00000">
+      <name>209068,437359</name>
+      <Snippet></Snippet>
+      <description><![CDATA[<html xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body style="margin:0px 0px 0px 0px;overflow:auto;background:#FFFFFF;">
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-collapse:collapse;padding:3px 3px 3px 3px">
+<tr style="text-align:center;font-weight:bold;background:#9CBCE2">
+<td>209068,437359</td>
+</tr>
+<tr>
+<td>
+<table style="font-family:Arial,Verdana,Times;font-size:12px;text-align:left;width:100%;border-spacing:0px; padding:3px 3px 3px 3px">
+<tr>
+<td>SHAPE</td>
+<td>Polygon</td>
+</tr>
+<tr bgcolor="#D4E4F3">
+<td>SHAPE_Length</td>
+<td>209068,437359</td>
+</tr>
+<tr>
+<td>SHAPE_Area</td>
+<td>401194055,509925</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
+]]></description>
+      <styleUrl>#PolyStyle00</styleUrl>
+      <MultiGeometry>
+        <Polygon>
+          <extrude>0</extrude><altitudeMode>clampToGround</altitudeMode><tessellate>1</tessellate>
+          <outerBoundaryIs><LinearRing><coordinates> 12.59667744861824,56.12813521452375,0 12.09355134982996,56.14267057269229,0 12.07342806491507,55.90728016913297,0 12.57351586290309,55.89286983391002,0 12.59667744861824,56.12813521452375,0</coordinates></LinearRing></outerBoundaryIs>
+          <innerBoundaryIs><LinearRing><coordinates> 12.18997613352952,55.91381141270018,0 12.18278164576697,55.92291771534934,0 12.17877413514181,55.93540520103311,0 12.17176207047477,55.94034339076448,0 12.1719299078398,55.96182125202488,0 12.17780351577268,55.96880576730383,0 12.16554273976968,55.97447347502988,0 12.14558004708096,55.97676890985837,0 12.1488066862049,55.99036353610383,0 12.12921862112388,55.9974038125271,0 12.09961555208875,55.99874677035862,0 12.10426189384722,56.08306895924628,0 12.12953806295716,56.09313388233804,0 12.1495183068054,56.10332908799677,0 12.17032699992893,56.11052665373871,0 12.19205801993693,56.11591299186809,0 12.2063098810462,56.12089545727115,0 12.22785262319837,56.12390187256939,0 12.2548106715199,56.12795122062723,0 12.27241371261154,56.1346218237393,0 12.30115260631829,56.13445123655431,0 12.3217879719819,56.1267614087371,0 12.34287854302305,56.12440787274076,0 12.3593039185083,56.11742022742325,0 12.37460955939588,56.10986623202019,0 12.39648748538777,56.10450828098864,0 12.42764798252493,56.09591522101452,0 12.44887378399617,56.09532357735725,0 12.47445064227969,56.09579522584958,0 12.51763553669641,56.09100281748626,0 12.5555261645755,56.07504774919761,0 12.54825013633258,56.02525634440468,0 12.44455644376119,56.02765349657688,0 12.41585137189449,56.027771166374,0 12.39404887304794,56.02846805827002,0 12.3727757042886,56.02810057490006,0 12.371162108535,56.01934313361188,0 12.36916706138486,56.01107186772371,0 12.36647046501341,56.0044849144085,0 12.36218404296256,55.99913071657944,0 12.35688724934154,55.99190088023121,0 12.35193360795246,55.9837099811223,0 12.35751021722624,55.9795141109617,0 12.36581067264629,55.97738448562681,0 12.36482072984716,55.96599322052674,0 12.36386360384823,55.93787495662071,0 12.3346519378282,55.92469440550951,0 12.32231903547992,55.91982437545565,0 12.31278058676473,55.91353988113687,0 12.30685505889796,55.90923906446054,0 12.28175397719467,55.909762469315,0 12.25450187058714,55.90989164098588,0 12.21039511977092,55.91105035529166,0 12.18997613352952,55.91381141270018,0</coordinates></LinearRing></innerBoundaryIs>
+        </Polygon>
+      </MultiGeometry>
+    </Placemark>
+  </Folder>
+  <Style id="PolyStyle00">
+    <LabelStyle>
+      <color>00000000</color>
+      <scale>0.000000</scale>
+    </LabelStyle>
+    <LineStyle>
+      <color>ff6e6e6e</color>
+      <width>0.400000</width>
+    </LineStyle>
+    <PolyStyle>
+      <color>ffeef5bf</color>
+      <outline>1</outline>
+    </PolyStyle>
+  </Style>
+</Document>
+</kml>

@@ -7,11 +7,21 @@ var query = undefined;
 
 var view = new ol.View({
     center: ol.proj.transform([12.0777615 , 55.6499431], "EPSG:4326", "EPSG:3857"),
-    zoom: 12 });
+    projection: ol.proj.get('EPSG:3857'),
+    zoom: 12
+});
+
+var vector = new ol.layer.Vector({
+    source: new ol.source.Vector({
+      url: '/data/nathejk.kmz',
+      format: new ol.format.KML()
+    })
+});
+
 
 // init map
 var map = new ol.Map({
-    layers: [new ol.layer.Tile({ source: new ol.source.OSM() })],
+    layers: [new ol.layer.Tile({ source: new ol.source.OSM() }), vector],
     target: "map",
     view: view,
     loadTilesWhileAnimating: true
